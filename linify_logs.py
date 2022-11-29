@@ -14,17 +14,17 @@ re_s = [ (re.compile(re_start_ms), re.compile(re_end_ms)), (re.compile(re_start_
 
 used_re = ()
 
-if len(sys.argv) == 0:
+if len(sys.argv) < 2:
     print("linify_logs inputfile.log [output.filename]")
     exit(0)
 
-infile = sys.argv[0]
+infile = sys.argv[1]
 outfile = ''
-if len(sys.argv) == 1:
+if len(sys.argv) == 2:
     (base, ext) = os.path.splitext(infile)
     outfile = base + '-oneline' + ext
 else:
-    outfile = sys.argv[1]
+    outfile = sys.argv[2]
    
 print('output to ' + outfile)
 
@@ -39,10 +39,10 @@ with open(infile, 'r') as in_f:
 
         def write_line(l: str):
             if in_log:
-                outfile.write(l.chomp())
-                outfile.write('\n')
+                out_f.write(l.rstrip())
+                out_f.write('\n')
             else:
-                outfile.write(l)
+                out_f.write(l)
 
         while True:
             count += 1
@@ -71,10 +71,8 @@ with open(infile, 'r') as in_f:
 
             match_start = used_re[0].match(line)
 
-            if match_start is None: # non-log line.
-                out_f.write(line)
-                in_log = True
-                continue;
+            in_log = ( match_start is not None) # non-log line.
+            write_line(line)
 
 
 
