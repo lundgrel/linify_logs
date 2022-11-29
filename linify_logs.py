@@ -8,13 +8,7 @@ import sys
 from xmlrpc.client import boolean
 
 
-re_start_ms = '^\d\d\:\d\d\:\d\d\.\d\d\d\ \{\d+\} \[\d+\] \|\;\;'
-re_start_tas = '^\d\d\:\d\d\:\d\d\.\d\d\d\ \{\d+\} \[\d+\] \|[^|]*\|'
-
-
-re_s = [ re.compile(re_start_ms), re.compile(re_start_tas) ]
-
-used_re = None
+re_start = re.compile('^\d\d\:\d\d\:\d\d\.\d\d\d\ \{\d+\} \[\d+\] \|')
 
 if len(sys.argv) < 2:
     print("linify_logs inputfile.log [output.filename]")
@@ -35,25 +29,17 @@ with open(infile, 'r') as in_f:
     with open(outfile, 'w') as out_f:
         count = 0
 
-
-        def write_line(l: str, in_log: boolean):
-            if in_log:
-                out_f.write(l.rstrip())
-                out_f.write('\n')
-            else:
-                out_f.write(l)
-
         def add_buf(l: str):
             global buf
             if buf is None:
                 buf = l
             else:
-                buf = buf.rstrip() + '\n' + l
+                buf = buf.rstrip() + '\\n' + l
 
         def write_buf():
             global buf
             if buf:
-                write_line(buf, False)
+                out_f.write(buf)
                 buf = None
 
         while True:
@@ -62,18 +48,11 @@ with open(infile, 'r') as in_f:
             line = in_f.readline()
             if not line: break;
 
-            
-            if used_re is None:
-                for re_start in re_s:
-                    if re_start.match(line) is not None:
-                        used_re = re_start
-                        break;
-                # if line doesn't match anything (like log-headers)
-                if used_re is None:
-                    write_line(line, False)
-                    continue;
 
-            match_start = used_re.match(line)
+            if line.find('sending request to sip:172.24.14.13:5060;transport=TCP;lr') > 0:
+                bp=17
+
+            match_start = re_start.match(line)
 
             if match_start:
                 write_buf()

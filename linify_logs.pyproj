@@ -12,7 +12,7 @@
     <Name>linify_logs</Name>
     <RootNamespace>linify_logs</RootNamespace>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <CommandLineArguments>"S:\OneDrive - Mitel Networks Corporation\Support\Solidus\95_sp3\RQST00001052301\MediaServer_221125_134902.log"</CommandLineArguments>
+    <CommandLineArguments>"S:\logs\MediaServer_221105.log"</CommandLineArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
