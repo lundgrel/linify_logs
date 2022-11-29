@@ -12,7 +12,7 @@
     <Name>linify_logs</Name>
     <RootNamespace>linify_logs</RootNamespace>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <CommandLineArguments>"S:\logs\MediaServer_221105.log"</CommandLineArguments>
+    <CommandLineArguments>"S:\OneDrive - Mitel Networks Corporation\Support\Solidus\95_sp3\MotorIT\539408 RQST00001051874 - Call removed due to error due to SIP2.0 404 SMP 70559 is already in call 1563999\TAS_UC201MICCTAS02_221122_091450.log"</CommandLineArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

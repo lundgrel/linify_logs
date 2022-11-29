@@ -25,8 +25,8 @@ else:
 print('output to ' + outfile)
 
 buf : str = None
-with open(infile, 'r') as in_f:
-    with open(outfile, 'w') as out_f:
+with open(infile, 'rt', encoding='latin_1') as in_f:
+    with open(outfile, 'wt', encoding='latin_1') as out_f:
         count = 0
 
         def add_buf(l: str):
@@ -49,8 +49,6 @@ with open(infile, 'r') as in_f:
             if not line: break;
 
 
-            if line.find('sending request to sip:172.24.14.13:5060;transport=TCP;lr') > 0:
-                bp=17
 
             match_start = re_start.match(line)
 
